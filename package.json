@@ -1,0 +1,32 @@
+{
+  "name": "usfws-glossary",
+  "version": "1.0.0",
+  "description": "An off-canvas glossary that's there when you need it, hidden when you don't",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/USFWS/glossary.git"
+  },
+  "keywords": [
+    "Glossary"
+  ],
+  "author": "Roy Hewitt (@r0yhewitt)",
+  "license": "SAX-PD",
+  "bugs": {
+    "url": "https://github.com/USFWS/glossary/issues"
+  },
+  "homepage": "https://github.com/USFWS/glossary#readme",
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "chai": "^3.5.0",
+    "karma": "^0.13.19",
+    "karma-browserify": "^5.0.1",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-mocha": "^0.2.1",
+    "mocha": "^2.4.5",
+    "watchify": "^3.7.0"
+  }
+}
