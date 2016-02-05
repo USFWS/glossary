@@ -2,6 +2,13 @@
 
 This glossary supplements the [U.S. Fish and Wildlife Service Southeast Regional website](http://fws.gov/southeast).  The goal of this glossary is to provide definitions to terms that may be unclear to our users. We are focused on writing content in plain language, but terms associated with Rules and Regulations may be foreign to our users.  This glossary automatically searches the current page for glossary terms, highlights them, and makes them clickable.  Clicking a term will summon the glossary from off-screen.  When you're done reading the definition you can return to your place on the page.
 
+### Options
+
+ - termClass (string): The class used to highlight any glossary terms found on the page. default: 'glossary-term',
+ - content (string/dom node): The content area that you'd like to search for glossary terms. default: 'main-content'
+ - dataUrl (string): Path to a JSON file containing glossary terms default: null
+ - active (boolean): Whether or not the glossary is currently active (on screen).  default: false
+
 ### Development
 
 To ease development we use npm scripts to compile JS with browserify/watchify, compile sass to css, optimize images, etc:
