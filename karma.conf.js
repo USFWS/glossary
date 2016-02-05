@@ -12,11 +12,14 @@ module.exports = function(config) {
     frameworks: ['mocha', 'browserify'],
 
     browserify: {
-      debug: true
+      debug: true,
+      transform: [ 'jadeify', 'brfs'],
+      extensions: ['.jade', '.json']
     },
 
     // list of files / patterns to load in the browser
     files: [
+      'src/test/mocks/*.json',
       'src/test/**/*.js'
     ],
 
