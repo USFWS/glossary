@@ -4,7 +4,21 @@
   "description": "An off-canvas glossary that's there when you need it, hidden when you don't",
   "main": "index.js",
   "scripts": {
-    "test": "karma start"
+    "pretest": "npm run lint --silent",
+    "test": "karma start",
+    "lint": "jshint --reporter=node_modules/jshint-stylish src/**/*.js",
+    "watch:sass": "node-sass -w src/scss/main.scss dist/css/main.css",
+    "build:sass": "node-sass --output-style compressed src/scss/main.scss dist/css/main.css",
+    "browserify": "browserify src/js/index.js | uglifyjs -mc > dist/js/bundle.js",
+    "watchify": "watchify src/js/index.js -o dist/js/bundle.js -dv",
+    "mkdist": "node build/create-dist",
+    "minifyjson": "json-minify src/data/terms.json > dist/data/terms.js",
+    "htmlmin": "htmlmin -o dist/index.html src/index.html",
+    "serve": "browser-sync start --server dist --files 'dist/**/*'",
+    "build": "npm run build:sass & npm run browserify",
+    "start": "npm run htmlmin & npm run watch:sass & npm run watchify & npm run serve",
+    "inspect:bundle": "browserify --full-paths src/js/index.js | uglifyjs -mc | Discify --open",
+    "publish:demo": "npm run build && gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -20,8 +34,12 @@
   },
   "homepage": "https://github.com/USFWS/glossary#readme",
   "devDependencies": {
+    "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
     "chai": "^3.5.0",
+    "html-minifier-cli": "^0.1.0",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0",
     "karma": "^0.13.19",
     "karma-browserify": "^5.0.1",
     "karma-chrome-launcher": "^0.2.2",
@@ -29,5 +47,13 @@
     "karma-mocha-reporter": "^1.1.5",
     "mocha": "^2.4.5",
     "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "class-list": "^0.1.1",
+    "insert": "^1.0.1",
+    "json-minify": "^1.0.0",
+    "lodash.defaults": "^4.0.1",
+    "lunr": "^0.6.0",
+    "xhr": "^2.2.0"
   }
 }
