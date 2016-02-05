@@ -3,7 +3,8 @@
 
   var dom = {
     insert: require('insert'),
-    classList: require('class-list')
+    ClassList: require('class-list'),
+    isNode: require('is-dom')
   };
 
   var _ = {
