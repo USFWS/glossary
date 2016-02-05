@@ -9,7 +9,7 @@
   function init(path) {
     xhr.get(path, function (err, res) {
       if (err) throw new Error('Could not download terms with the given path.');
-      terms = JSON.stringify(res.body);
+      terms = JSON.parse(res.body);
       emitter.emit('terms:loaded', terms);
     });
   }
