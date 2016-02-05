@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Adaptation",
+    "description": "To “adapt” means to change with changes in the environment. <br><br>In the context of wildlife and habitat conservation, adaptation techniques are scientifically sound methods used to deal with the effects of climate change. For example, parts of Alligator National Wildlife Refuge are being flooded due to the world’s rising sea levels. When a road or path that was once on the beach becomes swallowed by the sea, we must adapt and build a new road in a new location rather than attempting to repair the old road that will now be lost to the ocean.<br><br><a href='http://www.fws.gov/home/climatechange/adaptation.html'>Learn more about climate change adaptation</a>",
+    "related": ["Adapt", "Adaptive Management"],
+    "synonyms": []
+  },
+  {
+    "name": "Listed Species",
+    "description": "A plant or animal that receives federal protections under the Endangered Species Act. Species can be protected as endangered or threatened.<br><br><a href='http://ecos.fws.gov/tess_public/reports/ad-hoc-species-report?kingdom=V&kingdom=I&status=E&status=T&status=EmE&status=EmT&status=EXPE&status=EXPN&status=SAE&status=SAT&mapstatus=3&fcrithab=on&fstatus=on&fspecrule=on&finvpop=on&fgroup=on&header=Listed+Animals'>See listed animals</a><br><a href='http://ecos.fws.gov/tess_public/reports/ad-hoc-species-report?kingdom=P&status=E&status=T&status=EmE&status=EmT&status=EXPE&status=EXPN&status=SAE&status=SAT&mapstatus=3&fcrithab=on&fstatus=on&fspecrule=on&finvpop=on&fgroup=on&ffamily=on&header=Listed+Plants'>See listed plants</a>",
+    "related": [
+      "Endangered Species Act",
+      "Threatened",
+      "Endangered"
+    ],
+    "synonyms": []
+  },
+  {
+    "name": "Recovery",
+    "description": "The process by which the decline of an endangered or threatened species is stopped or reversed and threats are removed or reduced so that the species’ long term survival in the wild can be ensured.",
+    "related": [
+      "Endangered Species Act",
+      "Downlist",
+      "Delist"
+    ],
+    "synonyms": []
+  }
+  {
+    "name": "Threatened Species",
+    "description": "An animal that is likely to become an endangered species in the near future if we do not take action.<br><br>As defined in the <a href='http://www.fws.gov/endangered/esa-library/pdf/ESAall.pdf'>Endangered Species Act</a>",
+    "related": [
+      "Endangered Species Act",
+      "Endangered Species"
+    ],
+    "synonyms": []
+  }
+]
