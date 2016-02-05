@@ -1,9 +1,8 @@
 (function () {
   'use strict';
+  var glossary = require('./glossary');
 
-  function init() {
-
-  }
-
-  module.exports.init = init;
+  glossary.init({
+    dataUrl: '../data/terms.js'
+  });
 })();
