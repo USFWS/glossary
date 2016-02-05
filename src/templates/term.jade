@@ -1,0 +1,7 @@
+for term in terms
+  li.glossary-term
+    h2= term.name
+    p!= term.description
+    ul.glossary-related-terms
+      for relatedTerm in term.related
+        li= relatedTerm

@@ -38,6 +38,7 @@
   },
   "homepage": "https://github.com/USFWS/glossary#readme",
   "devDependencies": {
+    "brfs": "^1.4.3",
     "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
     "chai": "^3.5.0",
