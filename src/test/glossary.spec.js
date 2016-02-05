@@ -11,7 +11,14 @@
 
     beforeEach(function () {
       glossary.init({
-        terms: terms
+        terms: terms,
+        lunrIndex: function () {
+          this.field('name', { boost: 10 });
+          this.field('description');
+          this.field('related', { boost: 5 });
+          this.field('acronym', { boost: 3 });
+          this.ref('id');
+        }
       });
     });
 
