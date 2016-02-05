@@ -46,8 +46,9 @@ This module that acts as a data service layer.  It downloads glossary terms via 
 An html glossary built from an array of JSON documents. The glossary provides full text search using [lunr.js](http://lunrjs.com/).
 
 - active (boolean): Whether or not the glossary is active upon initialization  default: false
-- container (selector/DOM node): The containing element default: '.glossary-container'
 - terms (array): An array of JSON documents representing glossary terms that will be the basis of our search functionality
+- target (DOM node): Where do you want the glossary appended to? default: `document.body`
+- position
 
 ### Highlighter
 
