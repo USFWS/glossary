@@ -1,14 +1,11 @@
 (function () {
   'use strict';
 
-  var dom = {
-    insert: require('insert'),
-    ClassList: require('class-list'),
-    isNode: require('is-dom')
-  };
+  var dom = require('./util.dom');
 
   var _ = {
-    defaults: require('lodash.defaults')
+    defaults: require('lodash.defaults'),
+    isNode: require('is-dom')
   };
 
   module.exports._ = _;
