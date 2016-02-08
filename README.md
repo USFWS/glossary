@@ -46,18 +46,20 @@ This module that acts as a data service layer.  It downloads glossary terms via 
 An html glossary built from an array of JSON documents. The glossary provides full text search using [lunr.js](http://lunrjs.com/).
 
 - active (boolean): Whether or not the glossary is active upon initialization  default: false
-- terms (array): An array of JSON documents representing glossary terms that will be the basis of our search functionality
+- minLength (integer): The minimum number of characters required before search is triggered default: 2
+- position (string): The side of the screen the glossary transitions to as it is hidden `'right'` or `'left'` default: `'right'`
 - target (DOM node): Where do you want the glossary appended to? default: `document.body`
-- position
+- terms (array): An array of JSON documents representing glossary terms that will be the basis of our search functionality
+- toggleClass (string): default: `'glossary-toggle'`
 
 ### Highlighter
 
-  This module searches a given DOM node and it's children for glossary terms.  The module wraps terms in an element with a class so they can be styled and used to toggle the glossary
+This module searches a given DOM node and it's children for glossary terms.  The module wraps terms in an element with a class so they can be styled and used to toggle the glossary
 
- - content (string/dom node): The content area that you'd like to search for glossary terms. default: 'main-content'
- - data (array): An array of JSON documents representing glossary terms that will be the basis with which to search the content area
- - element (string): The type of element you would like to wrap the found term with
- - termClass (string): The class used to highlight any glossary terms found on the page. default: 'glossary-term',
+- content (string/dom node): The content area that you'd like to search for glossary terms. default: 'main-content'
+- data (array): An array of JSON documents representing glossary terms that will be the basis with which to search the content area
+- element (string): The type of element you would like to wrap the found term with
+- termClass (string): The class used to highlight any glossary terms found on the page. default: 'glossary-term',
 
 ### Development
 
