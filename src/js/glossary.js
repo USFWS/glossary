@@ -100,10 +100,9 @@
 
   function updateInput(e) {
     var isRelatedTerm = dom.hasClass(e.target, 'related-term');
-    var query;
+    var query = e.target.innerHTML;
 
     if (isRelatedTerm) {
-      query = e.target.innerHTML;
       options.input.value = query;
       render(search(query));
     }
@@ -130,6 +129,10 @@
 
   exports.init = init;
   exports.destroy = destroy;
+  exports.show = show;
+  exports.hide = hide;
+  exports.toggle = toggle;
 
+  // For testing
   exports.getOption = getOption;
 })();
