@@ -1,3 +1,27 @@
 .glossary-container {
-  
+  background: $glossary-bg-color;
+  bottom: 0;
+  color: $glossary-text-color;
+  max-width: $glossary-max-width;
+  overflow-y: scroll;
+  padding: 3%;
+  position: fixed;
+  transition: all .3s;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+
+  &.glossary-left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+
+  &.glossary-right {
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  &.active {
+    transform: translateX(0);
+  }
 }
