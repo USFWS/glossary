@@ -57,12 +57,12 @@
 			if (el.classList !== undefined) {
 				return el.classList.contains(name);
 			}
-			var className = getClass(el);
+			var className = this.getClass(el);
 			return className.length > 0 && new RegExp('(^|\\s)' + name + '(\\s|$)').test(className);
 		},
 
 		splitWords: function (str) {
-			return trim(str).split(/\s+/);
+			return this.trim(str).split(/\s+/);
 		},
 
 		trim: function (str) {
@@ -71,13 +71,13 @@
 
 		addClass: function (el, name) {
 			if (el.classList !== undefined) {
-				var classes = splitWords(name);
+				var classes = this.splitWords(name);
 				for (var i = 0, len = classes.length; i < len; i++) {
 					el.classList.add(classes[i]);
 				}
-			} else if (!hasClass(el, name)) {
-				var className = getClass(el);
-				setClass(el, (className ? className + ' ' : '') + name);
+			} else if (!this.hasClass(el, name)) {
+				var className = this.getClass(el);
+				this.setClass(el, (className ? className + ' ' : '') + name);
 			}
 		},
 
@@ -85,7 +85,7 @@
 			if (el.classList !== undefined) {
 				el.classList.remove(name);
 			} else {
-				setClass(el, trim((' ' + getClass(el) + ' ').replace(' ' + name + ' ', ' ')));
+				this.setClass(el, trim((' ' + this.getClass(el) + ' ').replace(' ' + name + ' ', ' ')));
 			}
 		},
 
