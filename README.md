@@ -2,7 +2,37 @@
 
 This glossary supplements the [U.S. Fish and Wildlife Service Southeast Regional website](http://fws.gov/southeast).  The goal of this glossary is to provide definitions to terms that may be unclear to our users. We are focused on writing content in plain language, but terms associated with Rules and Regulations may be foreign to our users.  This glossary automatically searches the current page for glossary terms, highlights them, and makes them clickable.  Clicking a term will summon the glossary from off-screen.  You can find related terms and when you're done reading the definition you can return to your place on the page.
 
-## Usage
+The glossary is broken down into three main modules: (1) data access, (2) glossary, (3) highlighter. A fourth module `mediator` is used to facilitate events between modules.
+
+## Options
+
+### Data Access
+
+This module that acts as a data service layer.  It downloads glossary terms via [XHR](https://www.npmjs.com/package/xhr) so the terms can be cached and makes them available to other modules through the `terms:loaded` event.
+
+- **url** (string): a valid url for the location of a JSON file containing glossary terms e.x: `'../data/terms.json'`
+
+### Glossary
+
+An html glossary built from an array of JSON documents. The glossary provides full text search using [lunr.js](http://lunrjs.com/).
+
+- **active** (boolean): Whether or not the glossary is active upon initialization  *default: `false`*
+- **minLength** (integer): The minimum number of characters required before search is triggered *default: `2`*
+- **position** (string): The side of the screen the glossary transitions to as it is hidden `'right'` or `'left'` *default: `'right'`*
+- **target** (DOM node): Where do you want the glossary appended to? *default: `document.body`*
+- **terms** (array): An array of JSON documents representing glossary terms that will be the basis of our search functionality
+- **toggleClass** (string): *default: `'glossary-toggle'`*
+
+### Highlighter
+
+This module searches a given DOM node and it's children for glossary terms.  The module wraps terms in an element with a class so they can be styled and used to toggle the glossary
+
+- **content** (string/dom node): The content area that you'd like to search for glossary terms. *default: `'main-content'`*
+- **data** (array): An array of JSON documents representing glossary terms that will be the basis with which to search the content area
+- **element** (string): The type of element you would like to wrap the found term with *default: `span`*
+- **termClass** (string): The class used to highlight any glossary terms found on the page. *default: `'glossary-term'`*,
+
+## Example
 
 ```javascript
 (function () {
@@ -32,34 +62,6 @@ This glossary supplements the [U.S. Fish and Wildlife Service Southeast Regional
   })
 })();
 ```
-
-## Options
-
-### Data Access
-
-This module that acts as a data service layer.  It downloads glossary terms via AJAX so the terms can be cached and makes them available to other modules.
-
-- url (string): a valid url for the location of a JSON file containing glossary terms e.x: `'../data/terms.json'`
-
-### Glossary
-
-An html glossary built from an array of JSON documents. The glossary provides full text search using [lunr.js](http://lunrjs.com/).
-
-- active (boolean): Whether or not the glossary is active upon initialization  default: false
-- minLength (integer): The minimum number of characters required before search is triggered default: 2
-- position (string): The side of the screen the glossary transitions to as it is hidden `'right'` or `'left'` default: `'right'`
-- target (DOM node): Where do you want the glossary appended to? default: `document.body`
-- terms (array): An array of JSON documents representing glossary terms that will be the basis of our search functionality
-- toggleClass (string): default: `'glossary-toggle'`
-
-### Highlighter
-
-This module searches a given DOM node and it's children for glossary terms.  The module wraps terms in an element with a class so they can be styled and used to toggle the glossary
-
-- content (string/dom node): The content area that you'd like to search for glossary terms. default: 'main-content'
-- data (array): An array of JSON documents representing glossary terms that will be the basis with which to search the content area
-- element (string): The type of element you would like to wrap the found term with
-- termClass (string): The class used to highlight any glossary terms found on the page. default: 'glossary-term',
 
 ### Development
 
