@@ -22,17 +22,16 @@
     createGlossary();
     createIndex();
     registerHandlers();
-    render();
+    render(options.terms);
   }
 
   function createGlossary() {
     if (!_.isNode(options.target))
       throw new Error('You provided an invalid DOM node to append the container.');
 
-    options.container = dom.create('aside', '.glossary-container', options.target);
-    options.input = dom.create('input', '.glossary-search', options.container);
-    options.list = dom.create('ol', '.glossary-list', options.container);
-
+    options.container = dom.create('aside', 'glossary-container', options.target);
+    options.input = dom.create('input', 'glossary-search', options.container);
+    options.list = dom.create('ol', 'glossary-list', options.container);
     options.target.appendChild(options.container);
   }
 
@@ -43,7 +42,7 @@
         id: i,
         name: term.name,
         description: term.description,
-        related: term.related
+        related: JSON.stringify(term.related)
       });
     });
   }
@@ -52,19 +51,29 @@
     options.input.addEventListener('keyup', searchKeyup);
   }
 
-  function render() {
+  function destroy() {
+    // Remove the glossary and all event listeners from the page
+    options.input.removeEventListener('keyup', searchKeyup);
+    dom.remove(options.container);
+  }
+
+  function render(terms) {
     options.list.innerHTML = template({
-      terms: options.terms
+      terms: terms
     });
   }
 
   function searchKeyup() {
     var value = options.input.value;
-    var hits = [];
+    var filtered = [];
 
+    if (value.length === 0) render(options.terms);
     if (value.length < options.minLength) return;
 
-    hits = search(value);
+    search(value).forEach(function(hit) {
+      filtered.push(options.terms[hit.ref]);
+    });
+    render(filtered);
   }
 
   function search(query) {
@@ -75,12 +84,6 @@
     return options.active;
   }
 
-  function remove() {
-    // Remove the glossary and all event listeners from the page
-    options.input.removeEventListener('keyup', searchKeyup);
-    dom.remove(options.container);
-  }
-
   function getOption(name) {
     if (options[name]) return options[name];
     else throw new Error('Option [' + name + '] does not exist');
@@ -88,7 +91,7 @@
 
   exports.init = init;
   exports.isActive = isActive;
-  exports.remove = remove;
+  exports.destroy = destroy;
 
   exports.getOption = getOption;
 })();
