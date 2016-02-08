@@ -22,7 +22,7 @@
   function init(opts) {
     options = _.defaults(opts, defaults);
     createGlossary();
-    createIndex();
+    createSearchIndex();
     registerHandlers();
     render(options.terms);
   }
@@ -41,7 +41,7 @@
     options.target.appendChild(options.container);
   }
 
-  function createIndex() {
+  function createSearchIndex() {
     index = lunr(options.lunrIndex);
     options.terms.forEach(function (term, i) {
       index.add({
@@ -55,12 +55,14 @@
 
   function registerHandlers() {
     options.input.addEventListener('keyup', searchKeyup);
+    options.list.addEventListener('click', updateInput);
     document.body.addEventListener('click', toggleGlossary);
   }
 
   function destroy() {
     // Remove the glossary and all event listeners from the page
     options.input.removeEventListener('keyup', searchKeyup);
+    options.list.removeEventLIstener('click', updateInput);
     document.body.removeEventListener('click', toggleGlossary);
     dom.remove(options.container);
   }
@@ -71,22 +73,40 @@
     });
   }
 
-  function searchKeyup() {
-    var value = options.input.value;
+  function search(query) {
     var filtered = [];
 
-    if (value.length === 0) render(options.terms);
-    if (value.length < options.minLength) return;
-
-    index.search(value).forEach(function(hit) {
+    index.search(query).forEach(function (hit) {
       filtered.push(options.terms[hit.ref]);
     });
-    render(filtered);
+
+    return filtered;
+  }
+
+  function searchKeyup() {
+    var query = options.input.value;
+    var filtered;
+
+    if (query.length === 0) render(options.terms);
+    if (query.length < options.minLength) return;
+
+    render(search(query));
   }
 
   function toggleGlossary(e) {
     var isGlossaryTrigger = dom.hasClass(e.target, options.toggleClass);
     if (isGlossaryTrigger) toggle();
+  }
+
+  function updateInput(e) {
+    var isRelatedTerm = dom.hasClass(e.target, 'related-term');
+    var query;
+
+    if (isRelatedTerm) {
+      query = e.target.innerHTML;
+      options.input.value = query;
+      render(search(query));
+    }
   }
 
   function getOption(name) {
