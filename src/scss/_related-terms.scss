@@ -2,6 +2,7 @@
   padding: 0;
 
   li {
+    @include tag;
     display: inline-block;
     margin-right: 10px;
   }
