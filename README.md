@@ -27,10 +27,14 @@ An html glossary built from an array of JSON documents. The glossary provides fu
 
 This module searches a given DOM node and it's children for glossary terms.  The module wraps terms in an element with a class so they can be styled and used to toggle the glossary
 
-- **content** (string/dom node): The content area that you'd like to search for glossary terms. *default: `'main-content'`*
-- **data** (array): An array of JSON documents representing glossary terms that will be the basis with which to search the content area
-- **element** (string): The type of element you would like to wrap the found term with *default: `span`*
-- **termClass** (string): The class used to highlight any glossary terms found on the page. *default: `'glossary-term'`*,
+- **content** (string/dom node): The content area that you'd like to search for glossary terms. *default: `document.body`*
+- **terms** (array): An array of strings representing the words you'd like to highlight
+- **tag** (string): The type of element you would like to wrap the found term with *default: `span`*
+- **class** (string): The class used to highlight any terms found on the page. *default: `'highlight'`*,
+- **skipTags** (regex): A regular expression of tags to exclude from highlighting *default: `new RegExp("^(?:|H1|H2|H3|H4|H5|H6|SCRIPT|FORM|STYLE)$")`*
+- **caseSensitive** (boolean): Should the *default: `false`*,
+- **wordsOnly** (boolean): If we want to highlight partial sections of a word, e.g. 'ca' from 'cat' *default: `false`*,
+- **wordsBoundary** (string): Part of a regular expression to be appended at the beginning and end of words *default: `'\\b'`*
 
 ## Example
 
