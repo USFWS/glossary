@@ -46,15 +46,15 @@
 
       it('add \'active\' class if it is not already in the container\'s class list', function () {
         var container = glossary.getOption('container');
-        var toggleButton = glossary.getOption('toggle').click();
+        var toggleButton = glossary.getOption('close').click();
         var isActive = dom.hasClass(container, 'active');
         expect(isActive).to.be.true;
       });
 
       it('remove \'active\' class if it is already in the container\'s class list', function () {
         var container = glossary.getOption('container');
-        var toggleButton = glossary.getOption('toggle');
-        toggleButton.click(); // Click one makes the glossary active
+        var toggleButton = glossary.getOption('close');
+        glossary.show();
         toggleButton.click(); // Click two makes the glossary in-active
         var isActive = dom.hasClass(container, 'active');
         expect(isActive).to.be.false;
