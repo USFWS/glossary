@@ -62,6 +62,8 @@
     "events": "^1.1.0",
     "is-dom": "^1.0.5",
     "lodash.defaults": "^4.0.1",
+    "lodash.foreach": "^4.0.0",
+    "lodash.isarray": "^4.0.0",
     "lunr": "^0.6.0",
     "xhr": "^2.2.0"
   }
