@@ -62,7 +62,7 @@
   function destroy() {
     // Remove the glossary and all event listeners from the page
     options.input.removeEventListener('keyup', searchKeyup);
-    options.list.removeEventLIstener('click', updateInput);
+    options.list.removeEventListener('click', updateInput);
     document.body.removeEventListener('click', toggleGlossary);
     dom.remove(options.container);
   }
@@ -127,11 +127,17 @@
     options.active ? hide() : show(); // jshint ignore:line
   }
 
+  function setValue(newValue) {
+    options.input.value = newValue;
+    render(search(newValue));
+  }
+
   exports.init = init;
   exports.destroy = destroy;
   exports.show = show;
   exports.hide = hide;
   exports.toggle = toggle;
+  exports.setValue = setValue;
 
   // For testing
   exports.getOption = getOption;
