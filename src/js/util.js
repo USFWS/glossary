@@ -5,6 +5,8 @@
 
   var _ = {
     defaults: require('lodash.defaults'),
+    each: require('lodash.foreach'),
+    isArray: require('lodash.isArray'),
     isNode: require('is-dom')
   };
 
