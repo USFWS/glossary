@@ -18,7 +18,7 @@
 
   document.body.addEventListener('click', toggleGlossary);
 
-  data.load('../data/terms.js');
+  data.load('./data/terms.js');
 
   emitter.on('terms:loaded', function (terms) {
 
