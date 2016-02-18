@@ -5,6 +5,7 @@
   var data = require('./get-terms');
   var emitter = require('./mediator');
   var dom = require('./util').dom;
+  var _ = require('./util')._;
 
   var lunrIndex = function () {
     this.field('name', { boost: 10 });
@@ -22,19 +23,16 @@
 
   emitter.on('terms:loaded', function (terms) {
 
-    var words = [];
-    terms.forEach( function (term) {
-      words.push(term.name);
-    });
-
     glossary.init({
       terms: terms,
-      containerClass: '.glossary-container',
+      containerClass: 'glossary-container',
       lunrIndex: lunrIndex
     });
 
     highlighter.init({
-      words: words,
+      words: _.map(terms, function (term) {
+        return term.name;
+      }),
       content: document.querySelector('.content'),
       class: highlightClass
     });
