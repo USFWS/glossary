@@ -10,7 +10,7 @@ The glossary is broken down into three main modules: (1) data access, (2) glossa
 
 This module that acts as a data service layer.  It downloads glossary terms via [XHR](https://www.npmjs.com/package/xhr) so the terms can be cached and makes them available to other modules through the `terms:loaded` event.
 
-- **url** (string): a valid url for the location of a JSON file containing glossary terms e.x: `'../data/terms.json'`
+- (string): a valid url for the location of a JSON file containing glossary terms e.x: `'../data/terms.json'`
 
 ### Glossary
 
