@@ -90,6 +90,10 @@ To visualize packages contributing to bundle file size:
 
 `npm run inspect:bundle`
 
+Run the tests!
+
+`npm test`
+
 License
 
 This project is a [U.S. Government work](https://www.usa.gov/government-works).
