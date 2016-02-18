@@ -11,6 +11,7 @@
   var options = {}, index;
   var defaults = {
     active: false,
+    activeClass: 'active',
     target: document.body,
     toggleClass: 'glossary-toggle',
     closeText: 'Close',
@@ -39,6 +40,7 @@
     options.close.innerHTML = options.closeText;
     options.list = dom.create('ol', 'glossary-list', options.container);
     options.target.appendChild(options.container);
+    if (options.active) show();
   }
 
   function createSearchIndex() {
@@ -115,12 +117,12 @@
 
   function show() {
     options.active = true;
-    dom.addClass(options.container, 'active');
+    dom.addClass(options.container, options.activeClass);
   }
 
   function hide() {
     options.active = false;
-    dom.removeClass(options.container, 'active');
+    dom.removeClass(options.container, options.activeClass);
   }
 
   function toggle() {
