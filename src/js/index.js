@@ -34,7 +34,7 @@
     });
 
     highlighter.init({
-      terms: words,
+      words: words,
       content: document.querySelector('.content'),
       class: highlightClass
     });
