@@ -24,18 +24,18 @@
   }
 
   function buildRegEx() {
-    options.terms = options.terms.filter( function(term){
-      return term !== '';
+    options.words = options.words.filter( function(word){
+      return word !== '';
     });
 
-    options.terms = options.terms.map( function(term) {
-      return term.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    options.words = options.words.map( function(word) {
+      return word.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     });
 
     var flag = options.caseSensitive ? '' : 'i';
     // The capture parenthesis will make sure we can match
     // only the matching word
-    var pattern = '(' + options.terms.join('|') + ')';
+    var pattern = '(' + options.words.join('|') + ')';
     if (options.wordsOnly) {
        pattern = options.wordsBoundary + pattern + options.wordsBoundary;
     }
