@@ -113,11 +113,6 @@
     }
   }
 
-  function getOption(name) {
-    if (options[name]) return options[name];
-    else throw new Error('Option [' + name + '] does not exist');
-  }
-
   function show() {
     options.active = true;
     dom.addClass(options.container, options.activeClass);
@@ -145,5 +140,10 @@
   exports.setValue = setValue;
 
   // For testing
+  function getOption(name) {
+    if (options[name]) return options[name];
+    else throw new Error('Option [' + name + '] does not exist');
+  }
+
   exports.getOption = getOption;
 })();
