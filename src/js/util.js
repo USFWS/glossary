@@ -7,7 +7,8 @@
     defaults: require('lodash.defaults'),
     each: require('lodash.foreach'),
     isArray: require('lodash.isArray'),
-    isNode: require('is-dom')
+    isNode: require('is-dom'),
+    map: require('lodash.map')
   };
 
   module.exports._ = _;
