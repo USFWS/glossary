@@ -30,8 +30,10 @@
 
   function createGlossary() {
     var position = 'glossary-' + options.position;
-    if (!_.isNode(options.target))
-      throw new Error('You provided an invalid DOM node to append the container.');
+    if (typeof options.target === 'string')
+      options.target = document.querySelector(options.target);
+    else if (!_.isNode(options.target))
+      throw new Error('You must provide a DOM node or CSS selector to append the container');
 
     options.container = dom.create('aside', 'glossary-container', options.target);
     dom.addClass(options.container, position);
