@@ -23,6 +23,7 @@ An html glossary built from an array of JSON documents. The glossary provides fu
 - **target** (DOM node): Where do you want the glossary appended to? *default: `document.body`*
 - **terms** (array): An array of JSON documents representing glossary terms that will be the basis of our search functionality
 - **toggleClass** (string): *default: `'glossary-toggle'`*
+- **containerClass** (css selector): *default: `'.glossary-container'`*
 
 ### Highlighter
 
@@ -48,21 +49,35 @@ This module searches a given DOM node and it's children for glossary terms.  The
   var data = require('./get-terms');
   var emitter = require('./mediator');
 
-  data.load('../data/terms.json');
+  data.load('./data/terms.js');
 
   emitter.on('terms:loaded', function (terms) {
-    glossary.init({
-      appendStyle: 'appendTo',
-      target: '.glossary-list'
+
+    var words = [];
+    terms.forEach( function (term) {
+      words.push(term.name);
     });
 
-    highlighter.highlight({
-      data: terms,
-      content: '',
-      element: 'span',
-      class: 'highlighted-term'
+    glossary.init({
+      terms: terms,
+      container: '.glossary-container',
+      lunrIndex: function () {
+        this.field('name', { boost: 10 });
+        this.field('description');
+        this.field('related', { boost: 5 });
+        this.field('acronym', { boost: 3 });
+        this.ref('id');
+      }
     });
-  })
+
+    highlighter.init({
+      terms: words,
+      content: document.querySelector('.content'),
+      class: highlightClass
+    });
+
+  });
+
 })();
 ```
 

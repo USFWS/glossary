@@ -14,6 +14,7 @@
     activeClass: 'active',
     target: document.body,
     toggleClass: 'glossary-toggle',
+    containerClass: '.glossary-container',
     closeText: 'Close',
     position: 'right',
     terms: [],
@@ -35,7 +36,7 @@
     else if (!_.isNode(options.target))
       throw new Error('You must provide a DOM node or CSS selector to append the container');
 
-    options.container = dom.create('aside', 'glossary-container', options.target);
+    options.container = dom.create('aside', options.containerClass, options.target);
     dom.addClass(options.container, position);
     options.input = dom.create('input', 'glossary-search', options.container);
     options.close = dom.create('button', options.toggleClass, options.container);

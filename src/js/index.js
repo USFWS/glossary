@@ -29,7 +29,7 @@
 
     glossary.init({
       terms: terms,
-      container: '.glossary-container',
+      containerClass: '.glossary-container',
       lunrIndex: lunrIndex
     });
 
