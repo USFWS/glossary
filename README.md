@@ -48,9 +48,7 @@ This module searches a given DOM node and it's children for glossary terms.  The
   var data = require('./get-terms');
   var emitter = require('./mediator');
 
-  data.load({
-    url: '../data/terms.json'
-  });
+  data.load('../data/terms.json');
 
   emitter.on('terms:loaded', function (terms) {
     glossary.init({
@@ -70,7 +68,7 @@ This module searches a given DOM node and it's children for glossary terms.  The
 
 ### Development
 
-To ease development we use npm scripts to compile JS with browserify/watchify, compile sass to css, optimize images, etc:
+To ease development we use [npm scripts](https://docs.npmjs.com/misc/scripts) to compile JS with browserify/watchify, compile sass to css, optimize images, etc:
 
 First, install the project dependencies:
 
