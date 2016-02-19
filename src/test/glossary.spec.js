@@ -8,8 +8,6 @@
   var glossary = require('../js/glossary.js');
   var terms = require('./mocks/terms.json');
 
-  var container, activeClass, toggleButton, toggleClass;
-
   var lunrIndex = function () {
     this.field('name', { boost: 10 });
     this.field('description');
@@ -19,6 +17,7 @@
   };
 
   describe('The glossary', function() {
+    var container, activeClass, toggleButton, toggleClass;
 
     afterEach( function () {
       glossary.destroy();
@@ -31,9 +30,8 @@
           terms: terms,
           lunrIndex: lunrIndex
         });
-        container = glossary.getOption('container');
-        activeClass = glossary.getOption('activeClass');
-        toggleButton = glossary.getOption('close');
+        container = glossary._getOption('container');
+        activeClass = glossary._getOption('activeClass');
       });
 
       it('should be inactive', function () {
@@ -41,89 +39,161 @@
       });
 
       it('should render one list item per term', function () {
-        var listItems = glossary.getOption('list').querySelectorAll('.glossary-term');
+        var listItems = glossary._getOption('list').querySelectorAll('.glossary-term');
         expect(terms.length).to.equal(listItems.length);
-      });
-
-      it('toggle button should add the activeClass if it is not already in the container\'s class list', function () {
-        toggleButton.click();
-        expect(dom.hasClass(container, activeClass)).to.be.true;
-      });
-
-      it('toggle button should remove the activeClass if it is already in the container\'s class list', function () {
-        glossary.show(); // Adds the active class
-        toggleButton.click(); // Removes the active class
-        console.log(dom.hasClass(container, activeClass));
-        expect(dom.hasClass(container, activeClass)).to.be.false;
       });
 
     });
 
     describe('upon initialization with custom options', function () {
-      var customTarget = dom.create('section', 'container', document.body);
+
+      it('should accept a CSS selector as a target to append the glossary container', function () {
+        var customTargetClass = 'custom-target';
+        var customTarget = dom.create('section', customTargetClass, document.body);
+        glossary.init({
+          terms: terms,
+          lunrIndex: lunrIndex,
+          target: '.' + customTargetClass
+        });
+        container = glossary._getOption('container');
+        expect(dom.hasClass(container.parentNode, customTargetClass)).to.be.true;
+        dom.remove(customTarget);
+      });
+
+      it('should be active', function () {
+        glossary.init({
+          terms: terms,
+          lunrIndex: lunrIndex,
+          active: true
+        });
+        container = glossary._getOption('container');
+        activeClass = glossary._getOption('activeClass');
+        expect(dom.hasClass(container, activeClass)).to.be.true;
+      });
+
+      it('should use the custom activeClass', function () {
+        var activeClass = 'visible';
+        glossary.init({
+          terms: terms,
+          lunrIndex: lunrIndex,
+          activeClass: activeClass,
+          active: true
+        });
+        container = glossary._getOption('container');
+        expect(dom.hasClass(container, activeClass)).to.be.true;
+      });
+
+      it('should have the \'glossary-left\' class w/ position:"left"', function () {
+        glossary.init({
+          terms: terms,
+          lunrIndex: lunrIndex,
+          position: 'left'
+        });
+        container = glossary._getOption('container');
+        expect(dom.hasClass(container, 'glossary-left')).to.be.true;
+      });
+
+    });
+
+    describe('functions controlling display', function () {
+
+      beforeEach( function () {
+        glossary.init({
+          terms: terms,
+          lunrIndex: lunrIndex
+        });
+        container = glossary._getOption('container');
+        activeClass = glossary._getOption('activeClass');
+      });
+
+      describe('toggle', function () {
+
+        it('should be a function', function () {
+          expect(glossary.toggle).to.be.a.function;
+        });
+
+        it('should remove the active class if it is present', function () {
+          expect(dom.hasClass(container, activeClass)).to.be.false;
+          glossary.toggle();
+          expect(dom.hasClass(container, activeClass)).to.be.true;
+        });
+
+        it('should add the active class if it is not present', function () {
+          glossary.show();
+          expect(dom.hasClass(container, activeClass)).to.be.true;
+          glossary.toggle();
+          expect(dom.hasClass(container, activeClass)).to.be.false;
+        });
+
+        it('should toggle the glossary when an element with the toggle class is clicked', function () {
+          var toggleClass = glossary._getOption('toggleClass');
+          var toggle = dom.create('button', toggleClass, document.body);
+          toggle.click();
+          expect(dom.hasClass(container, activeClass)).to.be.true;
+          dom.remove(toggle);
+        });
+      });
+
+      describe('show', function () {
+
+        it('should be a function', function () {
+          expect(glossary.show).to.be.a.function;
+        });
+
+        it('should add the activeClass to the container', function () {
+          glossary.show();
+          expect(dom.hasClass(container, activeClass)).to.be.true;
+        });
+      });
+
+      describe('hide', function () {
+
+        it('should be a function', function () {
+          expect(glossary.hide).to.be.a.function;
+        });
+
+        it('should remove the activeClass from the container', function () {
+          glossary.hide();
+          expect(dom.hasClass(container, activeClass)).to.be.false;
+        });
+      });
+    });
+
+    describe('search input', function () {
+      var input;
 
       beforeEach( function () {
         glossary.init({
           terms: terms,
           lunrIndex: lunrIndex,
-          target: '.container',
-          active: true,
-          activeClass: 'visible',
-          position: 'left',
-          toggleClass: 'toggle-glossary'
         });
-        container = glossary.getOption('container');
-        activeClass = glossary.getOption('activeClass');
-        toggleClass = glossary.getOption('toggleClass');
+         input = glossary._getOption('input');
       });
 
-      it('should accept a CSS selector as a target to append the glossary container', function () {
-        // querySelector returns null if it doesn't find anything.
-        expect(customTarget.querySelector('.glossary-container')).to.not.equal.null;
+      it('should be empty to start', function () {
+        expect(input.value).to.equal('');
       });
 
-      it('should be active', function () {
-        expect(glossary.getOption('active')).to.be.true;
+      it('setValue should be a function', function () {
+        expect(glossary.setValue).to.be.a.function;
       });
 
-      it('should use the custom activeClass', function () {
-        expect(dom.hasClass(container, activeClass)).to.be.true;
+      it('should equal the value passed into setValue', function () {
+        var newValue = 'Winning';
+        glossary.setValue(newValue);
+        expect(input.value).to.equal(newValue);
       });
 
-      it('should be have the \'glossary-left\' class', function () {
-        expect(dom.hasClass(container, 'glossary-left')).to.be.true;
+      it('should update the input value when user clicks on a related term', function () {
+        var relatedText = 'Related Term';
+        var list = glossary._getOption('list'); // event listener is on the list
+        var related = dom.create('span', 'related-term', list);
+        related.innerHTML = relatedText;
+        related.click();
+        expect(input.value).to.equal(relatedText);
       });
 
-      it('a button with custom toggleClass should toggle the glossary', function () {
-        var toggle = dom.create('button', toggleClass, document.body);
-        // Glossary is active upon init
-        expect(dom.hasClass(container, activeClass)).to.be.true;
-        toggle.click(); // click a button w/toggle class should close the glossary
-        expect(dom.hasClass(container, activeClass)).to.be.false;
-      });
     });
-
-    // xdescribe('search', function () {
-    //   beforeEach( function () {
-    //     glossary.init({
-    //       terms: terms,
-    //       lunrIndex: lunrIndex,
-    //       target: '.container',
-    //       active: true,
-    //       activeClass: 'visible',
-    //       position: 'left',
-    //       toggleClass: 'toggle-glossary'
-    //     });
-    //   });
-    //
-    //   it('should filter the glossary terms based on the input', function () {
-    //     var list, listItems;
-    //     glossary.setValue('Recovery');
-    //     list = glossary.getOption('list');
-    //     listItems = glossary.getOption('list').querySelectorAll('.glossary-term');
-    //     expect(listItems.length).to.equal(1);
-    //   });
-    // });
 
   });
 })();
