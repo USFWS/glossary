@@ -14,7 +14,7 @@
     activeClass: 'active',
     target: document.body,
     toggleClass: 'glossary-toggle',
-    containerClass: '.glossary-container',
+    containerClass: 'glossary-container',
     closeText: 'Close',
     position: 'right',
     terms: [],
@@ -145,5 +145,5 @@
     else throw new Error('Option [' + name + '] does not exist');
   }
 
-  exports.getOption = getOption;
+  exports._getOption = getOption;
 })();
