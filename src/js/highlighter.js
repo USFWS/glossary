@@ -18,7 +18,8 @@
 
   function init(opts) {
     options = _.defaults(opts, defaults);
-    if ( !_.isArray(opts.terms) ) throw new Error('You must provide an array of terms to highlight.');
+    if ( !_.isArray(opts.words) )
+      throw new Error('You must provide an array of terms to highlight.');
     buildRegEx();
     highlight(options.content, options.regex, options.tag, options.class);
   }
@@ -33,8 +34,7 @@
     });
 
     var flag = options.caseSensitive ? '' : 'i';
-    // The capture parenthesis will make sure we can match
-    // only the matching word
+    // The capture parenthesis will make sure we can match only the matching word
     var pattern = '(' + options.words.join('|') + ')';
     if (options.wordsOnly) {
        pattern = options.wordsBoundary + pattern + options.wordsBoundary;
