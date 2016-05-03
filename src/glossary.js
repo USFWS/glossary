@@ -37,7 +37,7 @@
     options.container = _.create('aside', options.containerClass, options.target);
     _.addClass(options.container, position);
     options.input = _.create('input', 'glossary-search', options.container);
-    options.close = _.create('button', options.toggleClass, options.container);
+    options.close = _.create('button', '', options.container);
     options.close.innerHTML = options.closeText;
     options.list = _.create('ol', 'glossary-list', options.container);
     options.target.appendChild(options.container);
@@ -59,6 +59,7 @@
   function registerHandlers() {
     options.input.addEventListener('keyup', searchKeyup);
     options.list.addEventListener('click', updateInput);
+    options.close.addEventListener('click', hide);
     document.body.addEventListener('click', toggleGlossary);
     document.body.addEventListener('keyup', keyup);
   }
@@ -67,6 +68,7 @@
     // Remove the glossary and all event listeners from the page
     options.input.removeEventListener('keyup', searchKeyup);
     options.list.removeEventListener('click', updateInput);
+    options.close.removeEventListener('click', hide);
     document.body.removeEventListener('click', toggleGlossary);
     document.body.removeEventListener('keyup', keyup);
     _.remove(options.container);
