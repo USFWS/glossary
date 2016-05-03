@@ -126,6 +126,7 @@
   function show() {
     options.active = true;
     _.addClass(options.container, options.activeClass);
+    options.input.focus();
   }
 
   function hide() {
