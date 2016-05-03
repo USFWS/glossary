@@ -1,5 +1,5 @@
 {
-  "name": "usfws-glossary",
+  "name": "fws-glossary",
   "version": "1.0.0",
   "description": "A glossary module that takes in a list of terms and enables full text search with LunrJS.",
   "main": "dist/glossary.js",
