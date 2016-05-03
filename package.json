@@ -1,28 +1,20 @@
 {
   "name": "usfws-glossary",
   "version": "1.0.0",
-  "description": "An off-canvas glossary that's there when you need it, hidden when you don't",
-  "main": "index.js",
-  "watch": {
-    "htmlmin": "src/index.html"
-  },
+  "description": "A glossary module that takes in a list of terms and enables full text search with LunrJS.",
+  "main": "dist/glossary.js",
   "scripts": {
-    "watch": "npm-watch",
     "pretest": "npm run lint --silent",
     "test": "karma start",
     "lint": "jshint --reporter=node_modules/jshint-stylish src/**/*.js",
-    "watch:sass": "node-sass -w src/scss/main.scss dist/css/main.css",
-    "build:sass": "node-sass --output-style compressed src/scss/main.scss dist/css/main.css",
-    "browserify": "browserify -t jadeify src/js/index.js | uglifyjs -mc > dist/js/bundle.js",
-    "watchify": "watchify -t jadeify src/js/index.js -o dist/js/bundle.js -dv",
+    "browserify": "browserify src/glossary.js -t jadeify --standalone Glossary | derequire | uglifyjs -mc > dist/glossary.js",
+    "watchify": "watchify -t jadeify src/glossary.js -o dist/glossary.js -dv",
     "mkdist": "node build/create-dist",
-    "minifyjson": "json-minify src/data/terms.json > dist/data/terms.js",
-    "htmlmin": "htmlmin -o dist/index.html src/index.html",
-    "serve": "browser-sync start --server dist --files 'dist/**/*'",
-    "build": "npm run build:sass & npm run browserify",
-    "start": "npm run watch & npm run htmlmin & npm run watch:sass & npm run watchify & npm run serve",
-    "inspect:bundle": "browserify -t jadeify --full-paths src/js/index.js | uglifyjs -mc | Discify --open",
-    "publish:demo": "npm run build && gh-pages -d dist"
+    "prebuild": "npm run mkdist",
+    "build": "npm run browserify",
+    "prestart": "npm run mkdist",
+    "start": "npm run watchify",
+    "inspect:bundle": "browserify -t jadeify --full-paths src/glossary.js | uglifyjs -mc | Discify --open"
   },
   "repository": {
     "type": "git",
@@ -38,16 +30,14 @@
   },
   "homepage": "https://github.com/USFWS/glossary#readme",
   "devDependencies": {
-    "brfs": "^1.4.3",
-    "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
     "chai": "^3.5.0",
-    "html-minifier-cli": "^0.1.0",
+    "derequire": "^2.0.3",
+    "events": "^1.1.0",
     "jade": "^1.11.0",
     "jadeify": "^4.6.0",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.1.0",
-    "json-minify": "^1.0.0",
     "karma": "^0.13.19",
     "karma-browserify": "^5.0.1",
     "karma-chrome-launcher": "^0.2.2",
@@ -59,13 +49,9 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "events": "^1.1.0",
     "is-dom": "^1.0.5",
     "lodash.defaults": "^4.0.1",
-    "lodash.foreach": "^4.0.0",
     "lodash.isarray": "^4.0.0",
-    "lodash.map": "^4.2.0",
-    "lunr": "^0.6.0",
-    "xhr": "^2.2.0"
+    "lunr": "^0.6.0"
   }
 }
