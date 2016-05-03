@@ -1,6 +1,6 @@
 {
   "name": "fws-glossary",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A glossary module that takes in a list of terms and enables full text search with LunrJS.",
   "main": "dist/glossary.js",
   "scripts": {
