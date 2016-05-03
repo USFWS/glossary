@@ -37,6 +37,7 @@
     options.container = _.create('aside', options.containerClass, options.target);
     _.addClass(options.container, position);
     options.input = _.create('input', 'glossary-search', options.container);
+    options.input.setAttribute('type', 'search');
     options.close = _.create('button', '', options.container);
     options.close.innerHTML = options.closeText;
     options.list = _.create('ol', 'glossary-list', options.container);
