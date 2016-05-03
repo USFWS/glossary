@@ -3,10 +3,8 @@
 
   var lunr = require('lunr');
 
-  var _ = require('./util')._;
-  var dom = require('./util').dom;
-  var emitter = require('./mediator');
-  var template = require('../templates/term.jade');
+  var _ = require('./util');
+  var template = require('./templates/term.jade');
 
   var options = {}, index;
   var defaults = {
@@ -36,12 +34,12 @@
     else if (!_.isNode(options.target))
       throw new Error('You must provide a DOM node or CSS selector to append the container');
 
-    options.container = dom.create('aside', options.containerClass, options.target);
-    dom.addClass(options.container, position);
-    options.input = dom.create('input', 'glossary-search', options.container);
-    options.close = dom.create('button', options.toggleClass, options.container);
+    options.container = _.create('aside', options.containerClass, options.target);
+    _.addClass(options.container, position);
+    options.input = _.create('input', 'glossary-search', options.container);
+    options.close = _.create('button', options.toggleClass, options.container);
     options.close.innerHTML = options.closeText;
-    options.list = dom.create('ol', 'glossary-list', options.container);
+    options.list = _.create('ol', 'glossary-list', options.container);
     options.target.appendChild(options.container);
     if (options.active) show();
   }
@@ -62,6 +60,7 @@
     options.input.addEventListener('keyup', searchKeyup);
     options.list.addEventListener('click', updateInput);
     document.body.addEventListener('click', toggleGlossary);
+    document.body.addEventListener('keyup', keyup);
   }
 
   function destroy() {
@@ -69,7 +68,8 @@
     options.input.removeEventListener('keyup', searchKeyup);
     options.list.removeEventListener('click', updateInput);
     document.body.removeEventListener('click', toggleGlossary);
-    dom.remove(options.container);
+    document.body.removeEventListener('keyup', keyup);
+    _.remove(options.container);
   }
 
   function render(terms) {
@@ -90,7 +90,6 @@
 
   function searchKeyup() {
     var query = options.input.value;
-    var filtered;
 
     if (query.length === 0) render(options.terms);
     if (query.length < options.minLength) return;
@@ -99,12 +98,15 @@
   }
 
   function toggleGlossary(e) {
-    var isGlossaryTrigger = dom.hasClass(e.target, options.toggleClass);
-    if (isGlossaryTrigger) toggle();
+    var isGlossaryTrigger = _.hasClass(e.target, options.toggleClass);
+    if (isGlossaryTrigger) {
+      setValue(e.target.textContent);
+      toggle();
+    }
   }
 
   function updateInput(e) {
-    var isRelatedTerm = dom.hasClass(e.target, 'related-term');
+    var isRelatedTerm = _.hasClass(e.target, 'related-term');
     var query = e.target.innerHTML;
 
     if (isRelatedTerm) {
@@ -113,14 +115,20 @@
     }
   }
 
+  function keyup (e) {
+    // Close the glossary on 'ESC'
+    var code = e.which || e.keyCode || 0;
+    if (code === 27) hide();
+  }
+
   function show() {
     options.active = true;
-    dom.addClass(options.container, options.activeClass);
+    _.addClass(options.container, options.activeClass);
   }
 
   function hide() {
     options.active = false;
-    dom.removeClass(options.container, options.activeClass);
+    _.removeClass(options.container, options.activeClass);
   }
 
   function toggle() {
